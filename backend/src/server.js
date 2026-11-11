@@ -1,10 +1,17 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const path = require('path');
+
+
 const profileRoutes = require('./routes/profileRoutes');
 const skillRoutes = require('./routes/skillRoutes');
 const experienceRoutes = require('./routes/experienceRoutes');
 const contactRoutes = require('./routes/contactRoutes');
+const certificateRoutes = require('./routes/certificateRoutes');
+const testimonialsRoutes = require('./routes/testimonialsRoutes');
+const resumeRoutes = require('./routes/resumeRoutes');
+const authRoutes = require('./routes/authRoutes');
 dotenv.config();
 
 // load koneksi database
@@ -14,11 +21,16 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.use('/uploads', express.static(path.join(__dirname, '../public/uploads'))); 
 app.use('/api/profile', profileRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/experiences', experienceRoutes)
 app.use('/api/contact', contactRoutes);
-  
+app.use('/api/certificates', certificateRoutes);
+app.use('/api/testimonials', testimonialsRoutes);
+app.use('/api/resumes', resumeRoutes);
+app.use('/api/auth', authRoutes);
 const port = 5000;
 
 // app.get('/', (req, res) => {
